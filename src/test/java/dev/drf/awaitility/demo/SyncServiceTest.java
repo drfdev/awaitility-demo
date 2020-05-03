@@ -5,12 +5,17 @@ import dev.drf.awaitility.demo.dto.ServiceResult;
 import dev.drf.awaitility.demo.dto.Status;
 import dev.drf.awaitility.demo.service.SyncServiceImpl;
 import org.hamcrest.Matcher;
+import org.junit.Ignore;
 import org.junit.Test;
 
+import java.util.concurrent.Callable;
+
+import static java.util.concurrent.TimeUnit.SECONDS;
 import static org.awaitility.Awaitility.await;
 import static org.hamcrest.Matchers.*;
 import static org.hamcrest.Matchers.hasProperty;
 
+@Ignore
 public class SyncServiceTest {
     private SyncServiceImpl service = new SyncServiceImpl();
 
@@ -24,9 +29,23 @@ public class SyncServiceTest {
 
     @Test
     public void singleCallTest() {
-        await().until(
-                () -> service.doSyncCall(ServiceParams.of(10)),
-                success("10")
+        Callable<ServiceResult<String>> callable = () -> service.doSyncCall(ServiceParams.of(10));
+        await().until(callable,success("10"));
+    }
+
+    @Test
+    public void singleCallTest_whenTimeout() {
+        await()
+                .atMost(2, SECONDS)
+                .until(
+                () -> service.doSyncCall(ServiceParams.of(15)),
+                success("15")
         );
+        await()
+                .atMost(2, SECONDS)
+                .until(
+                        () -> service.doSyncCall(ServiceParams.of(20)),
+                        success("20")
+                );
     }
 }
