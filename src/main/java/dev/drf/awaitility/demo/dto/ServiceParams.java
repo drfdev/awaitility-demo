@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 import static java.util.Objects.requireNonNull;
 
-public class ServiceParams<T extends Serializable> implements Serializable {
+public final class ServiceParams<T extends Serializable> implements Serializable {
     private static final long serialVersionUID = -4884297181260846813L;
 
     private final T value;

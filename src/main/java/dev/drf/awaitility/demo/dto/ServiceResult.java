@@ -6,7 +6,7 @@ import java.util.List;
 
 import static java.util.Objects.requireNonNull;
 
-public class ServiceResult<T extends Serializable> implements Serializable {
+public final class ServiceResult<T extends Serializable> implements Serializable {
     private static final long serialVersionUID = -6296543061895476518L;
 
     private final Status status;

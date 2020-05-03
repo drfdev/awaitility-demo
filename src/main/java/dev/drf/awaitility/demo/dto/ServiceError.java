@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 import static java.util.Objects.requireNonNull;
 
-public class ServiceError implements Serializable {
+public final class ServiceError implements Serializable {
     private static final long serialVersionUID = -7628266330148030711L;
 
     private final String code;
