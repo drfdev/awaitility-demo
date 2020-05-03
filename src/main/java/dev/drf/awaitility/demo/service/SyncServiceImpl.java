@@ -28,7 +28,7 @@ public class SyncServiceImpl implements SyncService {
                 Thread.sleep(SLEEP_TIME);
             } catch (InterruptedException ex) {
                 ex.printStackTrace();
-                return error("Sleep exeption");
+                return error("Sleep exception");
             }
             result = (String) resourceStub.checkResult(taskId);
         }
